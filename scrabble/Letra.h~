@@ -1,0 +1,23 @@
+#ifndef _LETRA_H_
+#define _LETRA_H_
+
+#include <iostream>
+#include "Constants.h" 
+#include <vector>
+
+using namespace std;
+
+class Letra
+{
+  friend ostream& operator<<(ostream &os,const Letra &l);
+private:
+  char simbolo;
+  
+public:
+  Letra(char simbolo = CASILLAVACIA);
+  int getPuntuacion()const;
+  char getSimbolo()const;
+  void setSimbolo(char simbolo);
+};
+
+#endif

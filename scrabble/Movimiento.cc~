@@ -1,0 +1,163 @@
+#include "Movimiento.h"
+#include <iostream>
+
+using namespace std;
+
+Movimiento::Movimiento()
+{
+  origen = Coordenada::coordenadaError;
+  puntuacion = 0;
+}
+
+Movimiento::Movimiento(string orden)
+{
+  for(unsigned int i = 0;i < orden.size(); i++)
+  {
+    Letra l(orden[i]);
+    palabra.push_back(l);
+  }
+  
+  if(orden[0] >= 'A' && orden[0] <= 'O') // Establecemos si la palabra se posiciona en vertical u horizontal
+  {
+    orientacion = VERTICAL;//WARNING
+    
+  }
+  else
+  {
+    orientacion = HORIZONTAL;//WARNING
+  }
+}
+
+Coordenada Movimiento::getOrigen()const
+{
+  return(origen);
+}
+
+Orientacion Movimiento::getOrientacion()const
+{
+  return(orientacion);
+}
+
+int Movimiento::getPuntuacion()const
+{
+  return(puntuacion);
+}
+
+vector<Letra> Movimiento::getPalabra()const
+{
+  return(palabra);
+}
+
+string Movimiento::getPalabraString()const
+{
+  string aux;
+  
+  for(unsigned int i = 0; i < palabra.size(); i++)
+  {
+    aux += palabra[i].getSimbolo();
+  }
+  return(aux);
+}
+
+void Movimiento::setPuntuacion(int puntuacion)
+{
+  this -> puntuacion = puntuacion;
+}
+
+ostream& operator<<(ostream &os,const Movimiento &m)
+{
+  string guarda = "";
+  string x,y,z,puntua,puntu;               // Coordenadas para pasarlas a string
+  int aux;		                   // Auxiliar para convertir la coordenada de int a string
+  
+  
+  if(getOrientacion() == VERTICAL)
+  {
+    if(getOrigen().getFila() >= 10)
+    {
+      x = getOrigen().getColumna() + 'A';             // Para la letra en vertical
+      aux = getOrigen().getFila() / 10;
+      z = aux + '0'; 		   	      // Para el primer numero
+      y = (getOrigen().getFila() - (aux * 10)) + '1'; // Para el segundo numero
+      
+      if(getPuntuacion() >= 10)
+      {
+	aux = getPuntuacion() / 10;
+	puntua = aux + '0';
+	puntu = (getPuntuacion() - (aux * 10)) + '0';
+	guarda += x + z + y + " " + getPalabraString() + " " + puntua + puntu;
+	
+      }
+      else
+      {
+	puntua = getPuntuacion() + '0'; 
+	guarda += x + z + y + " " + getPalabraString() + " " + puntua;
+      }
+    }
+    else
+    {
+      x = getOrigen().getColumna() + 'A';      // Para la letra en vertical
+      y = getOrigen().getFila() + '1';         // Para el numero en vertical
+      
+      if(getPuntuacion() >= 10)
+      {
+	aux = getPuntuacion() / 10;
+	puntua = aux + '0';
+	puntu = (getPuntuacion() - (aux * 10)) + '0';
+	guarda += x + y + " " + getPalabraString() + " " + puntua + puntu;
+	
+      }
+      else
+      {
+	puntua = getPuntuacion() + '0'; 
+	guarda += x + y + " " + getPalabraString() + " " + puntua;
+      }
+    }
+  }
+  else
+  {
+    if(getOrigen().getFila() >= 10)
+    {
+      x = getOrigen().getColumna() + 'A';		  // Para la letra en horizontal
+      aux = getOrigen().getFila() / 10;
+      z = aux + '0'; 				  // Para el primer numero
+      y = (getOrigen().getFila() - (aux * 10)) + '1'; 	  // Para el segundo numero
+      
+      if(getPuntuacion() >= 10)
+      {
+	aux = getPuntuacion() / 10;
+	puntua = aux + '0';
+	puntu = (getPuntuacion() - (aux * 10)) + '0';
+	guarda += z + y + x + " " + getPalabraString() + " " + puntua + puntu;
+	
+      }
+      else
+      {
+	puntua = getPuntuacion() + '0'; 
+	guarda += z + y + x + " " + getPalabraString() + " " + puntua;
+      }
+      
+    }
+    else
+    {
+      x = getOrigen().getFila() + '1';      // Para la letra en horizontal
+      y = getOrigen().getColumna() + 'A';   // Para el numero en horizontal
+      
+      if(getPuntuacion() >= 10)
+      {
+	aux = getPuntuacion() / 10;
+	puntua = aux + '0';
+	puntu = (getPuntuacion() - (aux * 10)) + '0';
+	guarda += x + y + " " + getPalabraString() + " " + puntua + puntu;
+	
+      }
+      else
+      {
+	puntua = getPuntuacion() + '0'; 
+	guarda += x + y + " " + getPalabraString() + " " + puntua;
+      }
+    } 
+  }
+  os << guarda;
+  return os;
+}

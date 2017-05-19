@@ -1,0 +1,29 @@
+#include "Jugador.h"
+#include <iostream>
+
+using namespace std;
+
+Jugador::Jugador()
+{
+	puntuacion=0;
+}
+
+Rack Jugador::getRack()const
+{
+  return(rack);
+}
+
+void Jugador::setRack(Rack r)
+{
+  this->rack=r;
+}
+
+int Jugador::getPuntuacion()const
+{
+  return(puntuacion);
+}
+
+void Jugador::setPuntuacion(int puntuacion)
+{
+  this->puntuacion = puntuacion;
+}

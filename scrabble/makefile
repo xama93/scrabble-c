@@ -1,0 +1,31 @@
+OPTS=-Wall -g
+OBJS=Coordenada.o scrabble.o Letra.o Tablero.o Movimiento.o Rack.o Partida.o Jugador.o
+CC=g++
+
+scrabble: $(OBJS)
+	$(CC) $(OPTS) $(OBJS) -o scrabble
+
+scrabble.o: scrabble.cc Coordenada.h Partida.h Constants.h Letra.h Tablero.h Movimiento.h Rack.h Jugador.h
+	$(CC) $(OPTS) -c scrabble.cc
+
+Coordenada.o: Coordenada.cc Coordenada.h Constants.h
+	$(CC) $(OPTS) -c Coordenada.cc
+
+Letra.o: Letra.cc Letra.h Constants.h
+	$(CC) $(OPTS) -c Letra.cc
+	
+Tablero.o: Tablero.cc Tablero.h Constants.h
+	$(CC) $(OPTS) -c Tablero.cc
+
+Movimiento.o: Movimiento.cc Letra.h Constants.h Coordenada.h Movimiento.h
+	$(CC) $(OPTS) -c Movimiento.cc
+
+Rack.o: Rack.cc Letra.h Constants.h Rack.h
+	$(CC) $(OPTS) -c Rack.cc
+
+Jugador.o: Jugador.cc Rack.h Constants.h Jugador.h
+	$(CC) $(OPTS) -c Jugador.cc
+
+Partida.o: Partida.cc Tablero.h Constants.h Jugador.h Letra.h Movimiento.h
+	$(CC) $(OPTS) -c Partida.cc
+	

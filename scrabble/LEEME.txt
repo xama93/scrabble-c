@@ -1,0 +1,62 @@
+AVISO IMPORTANTE: La práctica se corregirá usando los ficheros Coordenada.cc
+y Coordenada.h que se proporcionan con los materiales de la práctica.  No
+tendréis que enviar estos ficheros cuando entregéis la práctica en el
+servidor del DLSI.  Debido a esto, vuestra práctica (y el autocorrector)
+deben compilar y funcionar con los ficheros que se proporcionan en los
+materiales y NO se puede realizar ninguna modificación sobre los mismos.
+
+Para pasar el autocorrector, hay que copiar todos los ficheros de la
+práctica (.cc y .h) en el directorio src y ejecutar desde el terminal:
+
+./autocorrectorP2p3.sh
+
+A diferencia de la práctica anterior, en inicializarSemilla debe ponerse
+directamente srand(0) en lugar de srand(time(NULL)), ya que el autocorrector
+no lo cambia automáticamente.
+
+El proceso de corrección sigue los siguientes pasos:
+
+1- Se compila la práctica. 
+2- Se ejecutan las pruebas del directorio "entrada" y se almacenan los
+resultados en el directorio "obtenido". Se compara la salida obtenida con la
+salida correcta que se encuentra en el directorio "salida". Las pruebas que
+se han utilizado son las mismas que en la corrección de la práctica 2.
+3- Se hacen pruebas unitarias de las clases que debe tener el programa
+
+El autocorrector usa dos programas auxiliares: "mata", para parar la
+práctica en caso de que se cuelgue, y "comparefiles" para comparar dos
+ficheros de texto sin tener en cuenta espacios, guiones ni saltos de linea.
+
+-----------------------------------------------------------
+
+Si alguna prueba da un error cuando se comprueba la salida, se mostrará un
+mensaje parecido al del siguiente ejemplo:
+
+Prueba 1...
+35c35
+< Opcion: opcion incorrecta.
+---
+> Opcion: Opcion incorrecta
+
+Esto significa que el programa ha obtenido un resultado distinto del
+esperado. En este ejemplo, el error se ha producido en la línea 35. La
+primera línea (<) se corresponde con la salida de la práctica, y la
+segunda (>) con la salida correcta que debería haber producido.
+
+-----------------------------------------------------------
+
+AVISO IMPORTANTE SOBRE LAS PRUEBAS UNITARIAS: hay una prueba unitaria por
+cada clase, en la que se prueban todos los métodos públicos que se indican
+en el enunciado de la práctica.
+
+Si falta algún método del diagrama o no tiene exactamente los mismos
+parámetros, no será posible compilar las pruebas unitarias y por tanto la
+nota de la práctica será 0.  En caso de que falle alguna prueba unitaria, se
+puede consultar su código fuente, que está en el fichero test/p2TestSuiteAC.h.
+
+Cuando falla una prueba unitaria, el autocorrector indica una línea del
+fichero "p2TestSuiteAC.h", que normalmente tendrá algo como "TS_ASSERT(
+<condición> );", donde "<condición>" es una condición que debe cumplirse. 
+Por ejemplo, si una coordenada "c" es errónea y la condición es
+"c.isError()", si dicha condición no devuelve true, la prueba unitaria
+fallará.

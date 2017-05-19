@@ -1,0 +1,48 @@
+all: scrabble test1
+
+CXXTESTGEN=../test/cxxtestgen.pl
+CXXTESTSUITE=../test/p2TestSuiteAC.h
+
+OPTS=-Wall -g
+OBJS=Coordenada.o Letra.o Tablero.o Rack.o Jugador.o Movimiento.o Partida.o
+CC=g++
+
+scrabble: $(OBJS) scrabble.o
+	$(CC) $(OPTS) $(OBJS) scrabble.o -o scrabble
+
+scrabble.o: scrabble.cc Partida.h Constants.h
+	$(CC) $(OPTS) -c scrabble.cc
+
+Coordenada.o: Coordenada.cc Coordenada.h Constants.h
+	$(CC) $(OPTS) -c Coordenada.cc
+
+Letra.o: Letra.cc Letra.h Constants.h
+	$(CC) $(OPTS) -c Letra.cc
+
+Tablero.o: Tablero.cc Tablero.h Coordenada.h Letra.h Constants.h
+	$(CC) $(OPTS) -c Tablero.cc
+
+Rack.o: Rack.cc Rack.h Letra.h Constants.h
+	$(CC) $(OPTS) -c Rack.cc
+
+Jugador.o: Jugador.cc Jugador.h Rack.h Constants.h
+	$(CC) $(OPTS) -c Jugador.cc
+
+Movimiento.o: Movimiento.cc Movimiento.h Coordenada.h Letra.h Constants.h
+	$(CC) $(OPTS) -c Movimiento.cc
+
+Partida.o: Partida.cc Partida.h Tablero.h Movimiento.h Letra.h Jugador.h Constants.h
+	$(CC) $(OPTS) -c Partida.cc
+
+test1:
+	@echo 
+	@echo "Compilando pruebas unitarias"
+	@rm -f ../p2TestRunner
+	@env PERL_BADLANG=0 $(CXXTESTGEN) --error-printer -o ../p2TestRunner.cc $(CXXTESTSUITE)
+	g++ -I ../test -o ../p2TestRunner ../p2TestRunner.cc $(OBJS)
+	@rm -f ../p2TestRunner.cc
+
+clean:
+	rm -rf *.o
+	rm -rf *~
+	rm scrabble

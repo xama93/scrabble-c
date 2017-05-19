@@ -1,0 +1,22 @@
+fila --->getFila()
+comlumna--->getcolumna() substituir cosas de este tipo
+make -f makeprueba para compilar
+comprobar con un make despues de cada etapa
+
+1º scrable.cc
+coordenada.cc
+
+2ºletra.cc
+
+3ºtablero
+
+4ºrack
+
+5ºjugador
+
+6ºmovimiento
+
+7ºpartida
+
+8ºscrabble.cc final
+

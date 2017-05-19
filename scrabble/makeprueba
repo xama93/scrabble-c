@@ -1,0 +1,30 @@
+OPTS=-Wall -g
+OBJS=Coordenada.o main.o Letra.o Movimiento.o Tablero.o Rack.o Jugador.o Partida.o
+CC=g++
+
+main: $(OBJS)
+	$(CC) $(OPTS) $(OBJS) -o main
+
+main.o: main.cc Coordenada.h Constants.h Letra.h Movimiento.h Tablero.h Rack.h Jugador.h Partida.h
+	$(CC) $(OPTS) -c main.cc
+
+Coordenada.o: Coordenada.cc Coordenada.h Constants.h
+	$(CC) $(OPTS) -c Coordenada.cc
+
+Letra.o: Letra.cc Letra.h Constants.h
+	$(CC) $(OPTS) -c Letra.cc
+	
+Tablero.o: Tablero.cc Tablero.h Constants.h
+	$(CC) $(OPTS) -c Tablero.cc
+
+Movimiento.o: Movimiento.cc Letra.h Constants.h Coordenada.h Movimiento.h
+	$(CC) $(OPTS) -c Movimiento.cc
+
+Rack.o: Letra.h Rack.cc Rack.h Constants.h
+	$(CC) $(OPTS) -c Rack.cc
+
+Jugador.o: Jugador.cc Rack.h Constants.h Jugador.h
+	$(CC) $(OPTS) -c Jugador.cc
+
+Partida.o: Partida.cc Tablero.h Constants.h Jugador.h Letra.h Movimiento.h
+	$(CC) $(OPTS) -c Partida.cc
